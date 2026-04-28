@@ -65,7 +65,12 @@ a {
 .contact-form button,
 .chapter-rail-bar,
 .chapter-bottom-nav a,
-.not-found-page a {
+.not-found-page a,
+.calendar-clear-btn,
+.calendar-back-link,
+.release-mini-button,
+.release-entity-link,
+.release-steam-cta {
   background: var(--surface-bg);
   color: var(--surface-fg);
   border: var(--surface-border-width) solid var(--surface-border);
@@ -83,7 +88,14 @@ a {
 .chapter-rail-bar:is(:hover, :focus-visible, :active),
 .chapter-rail-bar.is-active,
 .chapter-bottom-nav a:is(:hover, :focus-visible, :active),
-.not-found-page a:is(:hover, :focus-visible, :active) {
+.not-found-page a:is(:hover, :focus-visible, :active),
+.calendar-clear-btn:is(:hover, :focus-visible, :active),
+.calendar-back-link:is(:hover, :focus-visible, :active),
+.release-mini-button:is(:hover, :focus-visible, :active),
+.release-mini-button.is-selected,
+.release-entity-link:is(:hover, :focus-visible, :active),
+.release-entity-link.is-active,
+.release-steam-cta:is(:hover, :focus-visible, :active) {
   background: var(--surface-fg);
   color: var(--surface-bg);
 }
@@ -106,6 +118,11 @@ a {
 .chapter-rail-bar:focus-visible,
 .chapter-bottom-nav a:focus-visible,
 .not-found-page a:focus-visible,
+.calendar-clear-btn:focus-visible,
+.calendar-back-link:focus-visible,
+.release-mini-button:focus-visible,
+.release-entity-link:focus-visible,
+.release-steam-cta:focus-visible,
 .contact-form input:focus-visible,
 .contact-form textarea:focus-visible,
 .chapter-track:focus-visible {
@@ -506,6 +523,221 @@ a {
   padding: 0.45rem 0.7rem;
 }
 
+.calendar-page {
+  min-height: 100dvh;
+  padding: calc(var(--header-height) + 1rem) 1rem 1rem;
+  background: var(--surface-bg);
+}
+
+.calendar-shell {
+  width: min(84rem, 100%);
+  margin: 0 auto;
+}
+
+.calendar-header h1 {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.calendar-header p {
+  margin: 0.6rem 0 0;
+}
+
+.calendar-clear-btn,
+.calendar-back-link,
+.release-steam-cta {
+  display: inline-block;
+  margin-top: 0.8rem;
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+}
+
+.calendar-status,
+.calendar-empty {
+  width: min(48rem, 100%);
+  border: var(--surface-border-width) solid var(--surface-border);
+  background: var(--surface-bg);
+  padding: 1rem;
+}
+
+.calendar-status-inline {
+  margin: 1rem 0 0;
+  border: var(--surface-border-width) solid var(--surface-border);
+  padding: 0.6rem 0.75rem;
+}
+
+.calendar-master-detail {
+  margin-top: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.calendar-master-detail.has-selection {
+  grid-template-columns: minmax(0, 1fr) minmax(19rem, 27rem);
+}
+
+.calendar-master {
+  min-width: 0;
+}
+
+.calendar-timeline {
+  display: grid;
+  gap: 1rem;
+}
+
+.calendar-day {
+  border: var(--surface-border-width) solid var(--surface-border);
+  background: var(--surface-bg);
+  padding: 0.75rem;
+}
+
+.calendar-day-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.02rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.calendar-day-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.release-mini-card {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.release-mini-button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 5.75rem minmax(0, 1fr);
+  gap: 0.75rem;
+  text-align: left;
+  padding: 0.55rem;
+  cursor: pointer;
+}
+
+.release-mini-thumb {
+  width: 100%;
+  height: 4.75rem;
+  object-fit: cover;
+  border: var(--surface-border-width) solid var(--surface-border);
+}
+
+.release-mini-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.release-mini-content {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.release-tags-wrap {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.release-tags-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.release-tag-type {
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  opacity: 0.8;
+}
+
+.release-entity-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.calendar-detail {
+  min-width: 0;
+}
+
+.release-detail-panel {
+  border: var(--surface-border-width) solid var(--surface-border);
+  background: var(--surface-bg);
+}
+
+.release-detail-image {
+  width: 100%;
+  height: 14rem;
+  object-fit: cover;
+  border-bottom: var(--surface-border-width) solid var(--surface-border);
+}
+
+.release-detail-body {
+  padding: 0.9rem;
+}
+
+.release-detail-date {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.release-detail-title {
+  margin: 0.3rem 0 0.6rem;
+}
+
+.release-detail-quote {
+  margin: 0.8rem 0;
+  border-left: var(--surface-border-width) solid var(--surface-border);
+  padding-left: 0.75rem;
+}
+
+.release-detail-synopsis {
+  margin: 0;
+}
+
+.release-social-links h3 {
+  margin: 0.85rem 0 0.45rem;
+  font-size: 0.95rem;
+}
+
+.release-social-links ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.release-social-links li {
+  margin: 0.25rem 0;
+}
+
+.release-social-links a {
+  text-decoration: underline;
+}
+
+.release-steam-pending {
+  margin: 0.85rem 0 0;
+  font-size: 0.9rem;
+}
+
+.calendar-mobile-detail-view {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -582,6 +814,19 @@ a {
   .home-footer-zone {
     min-height: 1.75rem;
   }
+
+  .calendar-master-detail,
+  .calendar-master-detail.has-selection {
+    grid-template-columns: 1fr;
+  }
+
+  .release-mini-button {
+    grid-template-columns: 4.8rem minmax(0, 1fr);
+  }
+
+  .release-detail-image {
+    height: 11rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -596,7 +841,13 @@ a {
   .contact-form button,
   .chapter-rail-bar,
   .chapter-bottom-nav a,
-  .not-found-page a {
+  .not-found-page a,
+  .calendar-clear-btn,
+  .calendar-back-link,
+  .release-mini-button,
+  .release-entity-link,
+  .release-steam-cta {
     transition: none !important;
   }
 }
+

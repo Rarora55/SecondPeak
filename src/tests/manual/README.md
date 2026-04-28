@@ -22,6 +22,27 @@ Record each row as `PASS`, `FAIL`, or `NOT RUN` with notes for failures.
 - `003-us3-lateral-navigation.md` - Lateral chapter navigation regression checks.
 - `003-regression-report.md` - Consolidated regression report template/outcome.
 
+## Feature 004: Videogame Release Calendar
+
+- `004-foundation-route-access.md` - Calendar route and direct URL accessibility checks.
+- `004-foundation-seo-discoverability.md` - Calendar metadata/canonical/Open Graph and discoverability checks.
+- `004-foundation-reduced-motion.md` - Calendar reduced-motion behavior checks.
+- `004-foundation-resilience-states.md` - Calendar loading/empty/error resilience checks.
+- `004-foundation-chapter-navigation-regression.md` - Out-of-scope chapter navigation non-regression checks.
+- `004-foundation-contact-validation-regression.md` - Out-of-scope contact validation non-regression checks.
+- `004-us1-day-timeline.md` - Day-grouped timeline rendering checks.
+- `004-us1-mini-card-content.md` - Mini card content and semantics checks.
+- `004-us1-calendar-seo.md` - Calendar route metadata checks.
+- `004-us2-selection-url-state.md` - Query-param selection persistence checks.
+- `004-us2-desktop-master-detail.md` - Desktop master-detail behavior checks.
+- `004-us2-mobile-detail-flow.md` - Mobile full-page detail flow checks.
+- `004-us2-reduced-motion-transitions.md` - US2 reduced-motion transition parity checks.
+- `004-us2-accessibility-selection.md` - Selected-state, alt-text, and focus-return accessibility checks.
+- `004-us3-entity-rendering.md` - Entity-backed studio/tag rendering checks.
+- `004-us3-publication-visibility.md` - Published visibility rule checks.
+- `004-us3-links-and-cta.md` - Social/RSS links and Steam CTA checks.
+- `004-regression-report.md` - Consolidated regression report template/outcome.
+
 ## Feature 002: Home Navigation and Review Spacing Fixes
 
 - `002-us1-menu-toggle.md` - Burger/X reliability and immediate close on navigation.

@@ -7,8 +7,10 @@ description: "Task list template for feature implementation"
 **Input**: Design documents from `/specs/[###-feature-name]/`
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/
 
-**Tests**: Tests are REQUIRED for constitution-critical user journeys (routing integrity, chapter
-navigation, reduced-motion behavior, contact validation, and accessibility-critical flows).
+**Tests**: Tests are REQUIRED for constitution-critical user journeys (routing integrity,
+reduced-motion behavior, accessibility-critical flows, and route-level resilience). Chapter
+navigation and contact-validation tasks are REQUIRED when those surfaces are in scope; otherwise
+add explicit non-regression checks.
 
 **Organization**: Group tasks by user story so each story is independently implementable and testable.
 
@@ -79,7 +81,7 @@ navigation, reduced-motion behavior, contact validation, and accessibility-criti
 
 ### Tests for User Story 2
 
-- [ ] T017 [P] [US2] Integration test for chapter navigation flow
+- [ ] T017 [P] [US2] Integration test for in-scope navigation flow
 - [ ] T018 [P] [US2] Accessibility and keyboard navigation test
 
 ### Implementation for User Story 2
@@ -100,7 +102,7 @@ navigation, reduced-motion behavior, contact validation, and accessibility-criti
 
 ### Tests for User Story 3
 
-- [ ] T022 [P] [US3] Contact/input validation and submission flow test
+- [ ] T022 [P] [US3] In-scope form/input validation and submission flow test (or explicit non-regression check)
 - [ ] T023 [P] [US3] Error-handling and retry behavior test
 
 ### Implementation for User Story 3

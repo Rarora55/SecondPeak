@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { SiteLayout } from "./shell/SiteLayout";
 import { ChapterRoute } from "../routes/chapters/ChapterRoute";
 import { chapterRegistry } from "../routes/chapters/chapter-config";
+import { CalendarPage } from "../routes/calendar/CalendarPage";
 import { ContactPage } from "../routes/contact/ContactPage";
 import { HomePage } from "../routes/home/HomePage";
 import { ManifestoPage } from "../routes/manifesto/ManifestoPage";
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
             ctaTo="/"
           />
         )
+      },
+      {
+        path: "calendar",
+        element: <CalendarPage />
       },
       {
         path: "reviews/far-lone-sails",

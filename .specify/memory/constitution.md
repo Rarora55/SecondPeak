@@ -1,24 +1,17 @@
 <!--
 Sync Impact Report
-- Version change: template version placeholder -> 1.0.0
+- Version change: 1.0.0 -> 1.1.0
 - Modified principles:
-  - template principle 1 -> I. Editorial-First Product
-  - template principle 2 -> II. Modular and Typed Architecture
-  - template principle 3 -> III. Controlled Horizontal Storytelling
-  - template principle 4 -> IV. Accessibility and Usability Over Novelty
-  - template principle 5 -> V. Performance as a Feature
-  - Added: VI. Content Ownership Discipline
-  - Added: VII. Production-Ready Scalability
+  - No principle title changes; governance obligations clarified in Delivery Workflow and Product Architecture Standards.
 - Added sections:
-  - Product Architecture Standards
-  - Delivery Workflow and Quality Gates
+  - None
 - Removed sections: None
 - Templates requiring updates:
-  - .specify/templates/plan-template.md: updated
-  - .specify/templates/spec-template.md: updated
+  - .specify/templates/plan-template.md: unchanged (already aligned)
+  - .specify/templates/spec-template.md: unchanged (already aligned)
   - .specify/templates/tasks-template.md: updated
   - .specify/templates/commands/*.md: pending (directory not present)
-  - README.md: updated
+  - README.md: unchanged (already aligned)
 - Follow-up TODOs: None
 -->
 
@@ -95,6 +88,9 @@ Rationale: Early architecture choices determine whether future editorial scale i
   appropriate.
 - Every public page MUST support metadata: title, description, canonical URL, and Open Graph.
 - Sitemap and robots configuration MUST be generated and maintained.
+- Any feature that introduces or changes a public route MUST include explicit metadata and
+  discoverability coverage in its spec, plan, and tasks (title/description/canonical/Open Graph
+  plus sitemap/robots impact).
 - Missing or unavailable CMS/backend content MUST degrade gracefully with loading, empty, and error
   states, including route-level error boundaries where appropriate.
 
@@ -104,9 +100,11 @@ Rationale: Early architecture choices determine whether future editorial scale i
   after design artifacts are produced.
 - Feature specifications MUST define accessibility, reduced-motion behavior, SEO behavior,
   resilience states, and performance expectations before task generation.
-- Task plans MUST include work items for routing integrity, chapter navigation, content rendering,
-  responsive behavior, reduced-motion handling, contact form validation, and
-  accessibility-critical flows.
+- Task plans MUST include work items for routing integrity, content rendering, responsive behavior,
+  reduced-motion handling, and accessibility-critical flows.
+- Task plans MUST include chapter navigation and contact validation work items when those surfaces
+  are in scope for the feature; out-of-scope surfaces MUST be explicitly labeled as non-regression
+  checks only.
 - Code review MUST reject changes that blur Sanity/Supabase ownership boundaries, introduce
   unnecessary animation complexity, or degrade readability/performance.
 - CI/CD for Vercel previews MUST remain functional; broken preview deployability blocks merge.
@@ -128,6 +126,6 @@ This constitution supersedes local conventions when conflicts occur.
 - Operational guidance source: repository templates under `.specify/templates/` MUST remain in
   sync with this document.
 
-**Version**: 1.0.0 | **Ratified**: 2026-04-22 | **Last Amended**: 2026-04-22
+**Version**: 1.1.0 | **Ratified**: 2026-04-22 | **Last Amended**: 2026-04-28
 
 

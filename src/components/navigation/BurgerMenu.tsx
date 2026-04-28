@@ -1,16 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useEffect, useId, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/reviews", label: "Reviews" },
-  { to: "/features", label: "Features" },
-  { to: "/interviews", label: "Interviews" },
-  { to: "/reviews/far-lone-sails/intro", label: "Far: Lone Sails" },
-  { to: "/manifesto", label: "Manifesto" },
-  { to: "/contact", label: "Contact" }
-];
+import { siteNavLinks } from "../../app/navigation/site-nav";
 
 const MENU_LABEL_OPEN = "Open navigation menu";
 const MENU_LABEL_CLOSE = "Close navigation menu";
@@ -69,7 +60,7 @@ export function BurgerMenu() {
             SecondPeak
           </NavLink>
           <nav className="menu-nav" aria-label="Main">
-            {navLinks.map((link) => (
+            {siteNavLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
