@@ -1,47 +1,39 @@
 export type HomeBlock = {
   title: string;
   to: string;
-  color: string;
 };
 
 export const homeLayout = {
   main: {
     title: "Main Feature",
-    to: "/reviews/far-lone-sails/intro",
-    color: "#22c55e"
+    to: "/reviews/far-lone-sails/intro"
   } satisfies HomeBlock,
   left: [
     {
       title: "Gameplay",
-      to: "/reviews/far-lone-sails/gameplay",
-      color: "#ef4444"
+      to: "/reviews/far-lone-sails/gameplay"
     },
     {
       title: "Art Direction",
-      to: "/reviews/far-lone-sails/art-direction",
-      color: "#f97316"
+      to: "/reviews/far-lone-sails/art-direction"
     },
     {
       title: "Conclusion",
-      to: "/reviews/far-lone-sails/conclusion",
-      color: "#eab308"
+      to: "/reviews/far-lone-sails/conclusion"
     }
   ] satisfies HomeBlock[],
   right: [
     {
       title: "Features",
-      to: "/features",
-      color: "#06b6d4"
+      to: "/features"
     },
     {
       title: "Interviews",
-      to: "/interviews",
-      color: "#6366f1"
+      to: "/interviews"
     },
     {
       title: "Manifesto",
-      to: "/manifesto",
-      color: "#ec4899"
+      to: "/manifesto"
     }
   ] satisfies HomeBlock[]
 };

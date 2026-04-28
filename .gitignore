@@ -142,3 +142,8 @@ vite.config.ts.timestamp-*
 .venv/
 .DS_Store
 Thumbs.db
+.idea/
+.vscode/
+build/
+*.tmp
+*.swp

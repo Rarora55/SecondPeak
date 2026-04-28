@@ -3,38 +3,55 @@ import { Link, useOutletContext } from "react-router-dom";
 import type { SiteLayoutOutletContext } from "../../app/shell/SiteLayout";
 import { homeLayout } from "./home-data";
 
+const HOME_FOOTER_TRIGGER_START = 0.9;
+
+function getHomeScrollProgress(homePageElement: HTMLElement) {
+  const scrollRoot = document.scrollingElement ?? document.documentElement;
+  const scrollTop = Math.max(scrollRoot.scrollTop, window.scrollY);
+  const pageTop = homePageElement.offsetTop;
+  const pageBottom = pageTop + homePageElement.offsetHeight;
+  const minScroll = pageTop;
+  const maxScroll = Math.max(pageBottom - window.innerHeight, minScroll + 1);
+  const totalScrollable = maxScroll - minScroll;
+
+  if (totalScrollable <= 0) {
+    return 0;
+  }
+
+  return Math.min(1, Math.max(0, (scrollTop - minScroll) / totalScrollable));
+}
+
 export function HomePage() {
   const { setHomeFooterInView } = useOutletContext<SiteLayoutOutletContext>();
-  const footerZoneRef = useRef<HTMLDivElement | null>(null);
+  const homePageRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const zone = footerZoneRef.current;
-    if (!zone || typeof window === "undefined") {
+    const homePageElement = homePageRef.current;
+    if (typeof window === "undefined") {
+      return;
+    }
+    if (!homePageElement) {
       return;
     }
 
-    if (!("IntersectionObserver" in window)) {
-      setHomeFooterInView(false);
-      return;
-    }
+    const syncFooterVisibility = () => {
+      const progress = getHomeScrollProgress(homePageElement);
+      setHomeFooterInView(progress >= HOME_FOOTER_TRIGGER_START);
+    };
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setHomeFooterInView(entry.isIntersecting);
-      },
-      { threshold: 0.05 }
-    );
-
-    observer.observe(zone);
+    syncFooterVisibility();
+    window.addEventListener("scroll", syncFooterVisibility, { passive: true });
+    window.addEventListener("resize", syncFooterVisibility);
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener("scroll", syncFooterVisibility);
+      window.removeEventListener("resize", syncFooterVisibility);
       setHomeFooterInView(false);
     };
   }, [setHomeFooterInView]);
 
   return (
-    <section className="home-page" aria-label="Editorial home">
+    <section ref={homePageRef} className="home-page" aria-label="Editorial home">
       <div className="home-grid">
         <div className="home-column-left">
           {homeLayout.left.map((block) => (
@@ -42,17 +59,12 @@ export function HomePage() {
               key={block.to}
               to={block.to}
               className="home-block"
-              style={{ backgroundColor: block.color }}
             >
               <span>{block.title}</span>
             </Link>
           ))}
         </div>
-        <Link
-          to={homeLayout.main.to}
-          className="home-main"
-          style={{ backgroundColor: homeLayout.main.color }}
-        >
+        <Link to={homeLayout.main.to} className="home-main">
           <span>{homeLayout.main.title}</span>
         </Link>
         <div className="home-column-right">
@@ -61,7 +73,6 @@ export function HomePage() {
               key={block.to}
               to={block.to}
               className="home-block"
-              style={{ backgroundColor: block.color }}
             >
               <span>{block.title}</span>
             </Link>
@@ -69,7 +80,7 @@ export function HomePage() {
         </div>
       </div>
 
-      <div ref={footerZoneRef} className="home-footer-zone" aria-hidden="true">
+      <div className="home-footer-zone" aria-hidden="true">
         <div className="home-footer-zone-sentinel" />
       </div>
     </section>

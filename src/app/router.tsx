@@ -22,7 +22,6 @@ export const router = createBrowserRouter([
           <SectionLandingPage
             title="Reviews"
             description="Entry point for review chapters."
-            color="#f97316"
             ctaLabel="Read FAR: Lone Sails chapter"
             ctaTo={`${farLoneSails.basePath}/${farLoneSails.pages[0].slug}`}
           />
@@ -34,7 +33,6 @@ export const router = createBrowserRouter([
           <SectionLandingPage
             title="Features"
             description="Long-form features section placeholder."
-            color="#06b6d4"
             ctaLabel="Open Home"
             ctaTo="/"
           />
@@ -46,7 +44,6 @@ export const router = createBrowserRouter([
           <SectionLandingPage
             title="Interviews"
             description="Interview section placeholder."
-            color="#6366f1"
             ctaLabel="Open Home"
             ctaTo="/"
           />

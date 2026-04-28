@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation } from "react-router-dom";
 import { BurgerMenu } from "../../components/navigation/BurgerMenu";
 import { SiteFooter } from "../../components/shell/SiteFooter";
 
@@ -30,9 +30,13 @@ export function SiteLayout() {
   return (
     <div className="site-root">
       <header className="site-header">
-        <Link to="/" className="site-brand">
+        <NavLink
+          to="/"
+          className={({ isActive }) => `site-brand${isActive ? " is-active" : ""}`}
+          aria-label="Go to home page"
+        >
           SecondPeak
-        </Link>
+        </NavLink>
         <BurgerMenu />
       </header>
       <main className="site-main">

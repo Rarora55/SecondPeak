@@ -2,7 +2,6 @@ export type ChapterPage = {
   slug: string;
   title: string;
   summary: string;
-  color: string;
 };
 
 export type ChapterDefinition = {
@@ -20,26 +19,22 @@ const farLoneSails: ChapterDefinition = {
     {
       slug: "intro",
       title: "Intro",
-      summary: "Opening frame for the chapter.",
-      color: "#1d4ed8"
+      summary: "Opening frame for the chapter."
     },
     {
       slug: "gameplay",
       title: "Gameplay",
-      summary: "Interaction systems and pacing.",
-      color: "#7c3aed"
+      summary: "Interaction systems and pacing."
     },
     {
       slug: "art-direction",
       title: "Art Direction",
-      summary: "Visual language and world-building.",
-      color: "#db2777"
+      summary: "Visual language and world-building."
     },
     {
       slug: "conclusion",
       title: "Conclusion",
-      summary: "Final editorial verdict and closure.",
-      color: "#ea580c"
+      summary: "Final editorial verdict and closure."
     }
   ]
 };

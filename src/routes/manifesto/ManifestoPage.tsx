@@ -3,7 +3,7 @@ export function ManifestoPage() {
     <section className="manifesto-page">
       <div className="static-page-inner">
         <h1>Manifesto</h1>
-        <p>Brown placeholder surface for manifesto editorial layout validation.</p>
+        <p>Editorial-first principles and publishing direction for SecondPeak.</p>
       </div>
     </section>
   );
