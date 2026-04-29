@@ -37,7 +37,7 @@ const releases: SanityReleaseDoc[] = [
     title: "Hades II 1.0",
     releaseDate: "2026-05-05",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?auto=format&fit=crop&w=640&q=80",
+      "https://upload.wikimedia.org/wikipedia/en/0/0c/Hades_2_cover_art.jpeg",
     thumbnailAlt: "Heroic fantasy scene with glowing blades",
     studioId: "studio-supergiant",
     tagIds: ["tag-roguelike", "tag-fast-combat", "tag-pc"],
@@ -53,7 +53,7 @@ const releases: SanityReleaseDoc[] = [
     title: "Temtem: Astral Campaign",
     releaseDate: "2026-05-13",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=640&q=80",
+      "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/745920/header.jpg?t=1773698361",
     thumbnailAlt: "Dark cavern landscape lit by pale neon",
     studioId: "studio-team-cherry",
     tagIds: ["tag-metroidvania", "tag-soulslike", "tag-atmospheric", "tag-pc", "tag-switch"],
@@ -69,7 +69,7 @@ const releases: SanityReleaseDoc[] = [
     title: "Signalius: Signalis II",
     releaseDate: "2026-05-13",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=640&q=80",
+      "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/2x1_NSwitch_Signalis_image1600w.jpg",
     thumbnailAlt: "Dark cavern landscape lit by pale neon",
     studioId: "studio-team-cherry",
     tagIds: ["tag-metroidvania", "tag-soulslike", "tag-atmospheric", "tag-pc", "tag-switch"],
@@ -85,7 +85,7 @@ const releases: SanityReleaseDoc[] = [
     title: "Vampire Survivors: Astral Campaign",
     releaseDate: "2026-05-12",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=640&q=80",
+      "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_download_software_1/2x1_NSwitchDS_VampireSurvivors.jpg",
     thumbnailAlt: "Pixel-like nebula colors against a black background",
     studioId: "studio-poncle",
     tagIds: ["tag-survivor", "tag-roguelike", "tag-pc"],

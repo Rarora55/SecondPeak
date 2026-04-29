@@ -4,7 +4,7 @@ import { ChapterRoute } from "../routes/chapters/ChapterRoute";
 import { chapterRegistry } from "../routes/chapters/chapter-config";
 import { CalendarPage } from "../routes/calendar/CalendarPage";
 import { ContactPage } from "../routes/contact/ContactPage";
-import { HomePage } from "../routes/home/HomePage";
+import { HomeVersionPage } from "../routes/home/HomeVersionPage";
 import { ManifestoPage } from "../routes/manifesto/ManifestoPage";
 import { NotFoundPage } from "../routes/not-found/NotFoundPage";
 import { SectionLandingPage } from "../routes/sections/SectionLandingPage";
@@ -16,7 +16,9 @@ export const router = createBrowserRouter([
     path: "/",
     element: <SiteLayout />,
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <Navigate to="/home" replace /> },
+      { path: "home", element: <HomeVersionPage /> },
+      { path: "home/:versionSlug", element: <HomeVersionPage /> },
       {
         path: "reviews",
         element: (

@@ -4,7 +4,7 @@ export type SiteNavItem = {
 };
 
 export const siteNavLinks: SiteNavItem[] = [
-  { to: "/", label: "Home" },
+  { to: "/home", label: "Home" },
   { to: "/reviews", label: "Reviews" },
   { to: "/features", label: "Features" },
   { to: "/interviews", label: "Interviews" },

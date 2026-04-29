@@ -7,7 +7,7 @@ export type SiteLayoutOutletContext = {
   setHomeFooterInView: (isInView: boolean) => void;
 };
 
-const HOME_ROUTE = "/";
+const HOME_ROUTE = "/home";
 
 export function SiteLayout() {
   const location = useLocation();
@@ -31,7 +31,7 @@ export function SiteLayout() {
     <div className="site-root">
       <header className="site-header">
         <NavLink
-          to="/"
+          to="/home"
           className={({ isActive }) => `site-brand${isActive ? " is-active" : ""}`}
           aria-label="Go to home page"
         >
