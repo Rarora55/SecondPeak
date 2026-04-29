@@ -26,8 +26,8 @@ export function CalendarTimeline({
   if (groups.length === 0) {
     return (
       <section className="calendar-empty" aria-live="polite">
-        <h2>No releases found</h2>
-        <p>Try removing one of the filters to see more results.</p>
+        <h2>No days to display</h2>
+        <p>Try changing the month or turning off hide empty days.</p>
       </section>
     );
   }

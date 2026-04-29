@@ -5,6 +5,8 @@ import { loadCalendarData } from "./calendar-data";
 import { applyCalendarSeo } from "./calendar-seo";
 import {
   buildCalendarSearchParams,
+  parseCalendarMonth,
+  parseHideEmptyDays,
   parseSelectedGameSlug,
   parseStudioSlug,
   parseTagSlug
@@ -16,7 +18,11 @@ import {
   filterReleasesByTag,
   resolvePublishedReleaseBySlug
 } from "./calendar-visibility";
-import { groupReleasesByDay } from "./calendar-utils";
+import {
+  getSupportedCalendarMonths,
+  groupReleasesByMonthDays,
+  resolveCalendarMonth
+} from "./calendar-utils";
 import { CalendarTimeline } from "./components/CalendarTimeline";
 import { ReleaseDetailPanel } from "./components/ReleaseDetailPanel";
 
@@ -72,6 +78,14 @@ export function CalendarPage() {
   const activeStudioSlug = parseStudioSlug(searchParams);
   const activeTagSlug = parseTagSlug(searchParams);
   const selectedSlug = parseSelectedGameSlug(searchParams);
+  const monthParam = parseCalendarMonth(searchParams);
+  const hideEmptyDays = parseHideEmptyDays(searchParams);
+  const selectedMonth = resolveCalendarMonth(monthParam);
+  const supportedMonths = getSupportedCalendarMonths();
+  const selectedMonthIndex = supportedMonths.indexOf(selectedMonth);
+  const canGoPrevMonth = selectedMonthIndex > 0;
+  const canGoNextMonth =
+    selectedMonthIndex >= 0 && selectedMonthIndex < supportedMonths.length - 1;
 
   const publicReleases = useMemo(() => filterPublicReleases(releases), [releases]);
   const filteredReleases = useMemo(() => {
@@ -79,7 +93,10 @@ export function CalendarPage() {
     return filterReleasesByTag(byStudio, activeTagSlug);
   }, [publicReleases, activeStudioSlug, activeTagSlug]);
 
-  const groups = useMemo(() => groupReleasesByDay(filteredReleases), [filteredReleases]);
+  const groups = useMemo(
+    () => groupReleasesByMonthDays(selectedMonth, filteredReleases, hideEmptyDays),
+    [selectedMonth, filteredReleases, hideEmptyDays]
+  );
   const selectedRelease = useMemo(
     () => resolvePublishedReleaseBySlug(publicReleases, selectedSlug),
     [publicReleases, selectedSlug]
@@ -97,20 +114,66 @@ export function CalendarPage() {
   }, [selectedRelease]);
 
   const onSelect = (release: ResolvedGameRelease) => {
-    if (!isDesktop) {
-      lastSelectedForFocusRef.current = release.slug;
-    }
+    lastSelectedForFocusRef.current = release.slug;
     const next = buildCalendarSearchParams({
       game: release.slug,
+      studio: activeStudioSlug,
+      tag: activeTagSlug,
+      month: selectedMonth,
+      hideEmpty: hideEmptyDays
+    });
+    setSearchParams(next, { replace: false });
+  };
+
+  const clearSelected = () => {
+    const next = buildCalendarSearchParams({
+      month: selectedMonth,
+      hideEmpty: hideEmptyDays,
       studio: activeStudioSlug,
       tag: activeTagSlug
     });
     setSearchParams(next, { replace: false });
   };
 
-  const clearSelected = () => {
-    const next = buildCalendarSearchParams({ studio: activeStudioSlug, tag: activeTagSlug });
+  const closeSelected = () => {
+    if (selectedSlug) {
+      lastSelectedForFocusRef.current = selectedSlug;
+    }
+    clearSelected();
+  };
+
+  const setMonth = (month: string) => {
+    const next = buildCalendarSearchParams({
+      month,
+      hideEmpty: hideEmptyDays,
+      studio: activeStudioSlug,
+      tag: activeTagSlug
+    });
     setSearchParams(next, { replace: false });
+  };
+
+  const setHideEmpty = (hideEmpty: boolean) => {
+    const next = buildCalendarSearchParams({
+      month: selectedMonth,
+      hideEmpty,
+      studio: activeStudioSlug,
+      tag: activeTagSlug
+    });
+    setSearchParams(next, { replace: false });
+  };
+
+  const goToPreviousMonth = () => {
+    if (!canGoPrevMonth) {
+      return;
+    }
+    setMonth(supportedMonths[selectedMonthIndex - 1]);
+  };
+
+  const goToNextMonth = () => {
+    if (!canGoNextMonth) {
+      return;
+    }
+    setMonth(supportedMonths[selectedMonthIndex + 1]);
   };
 
   useEffect(() => {
@@ -157,6 +220,53 @@ export function CalendarPage() {
         <header className="calendar-header">
           <h1>Release Calendar</h1>
           <p>Published videogame launches in an editorial timeline.</p>
+          <div className="calendar-filters">
+            <label className="calendar-filter-field" htmlFor="calendar-month-select">
+              <span>Month</span>
+              <button
+                type="button"
+                className="calendar-month-arrow"
+                aria-label="Previous month"
+                onClick={goToPreviousMonth}
+                disabled={!canGoPrevMonth}
+              >
+                <span aria-hidden="true">{"<"}</span>
+              </button>
+              <select
+                id="calendar-month-select"
+                value={selectedMonth}
+                onChange={(event) => setMonth(event.target.value)}
+              >
+                {supportedMonths.map((month) => (
+                  <option key={month} value={month}>
+                    {new Intl.DateTimeFormat("en-US", {
+                      month: "long",
+                      year: "numeric"
+                    }).format(new Date(`${month}-01T00:00:00`))}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                className="calendar-month-arrow"
+                aria-label="Next month"
+                onClick={goToNextMonth}
+                disabled={!canGoNextMonth}
+              >
+                <span aria-hidden="true">{">"}</span>
+              </button>
+            </label>
+            <label className="calendar-filter-toggle" htmlFor="calendar-hide-empty-toggle">
+              <input
+                id="calendar-hide-empty-toggle"
+                type="checkbox"
+                checked={hideEmptyDays}
+                onChange={(event) => setHideEmpty(event.target.checked)}
+              />
+              <span>Hide empty days</span>
+            </label>
+          </div>
+
           {(activeStudioSlug || activeTagSlug || selectedSlug) && (
             <button type="button" className="calendar-clear-btn" onClick={clearSelected}>
               Clear filters
@@ -176,6 +286,8 @@ export function CalendarPage() {
               to={{
                 pathname: "/calendar",
                 search: buildCalendarSearchParams({
+                  month: selectedMonth,
+                  hideEmpty: hideEmptyDays,
                   studio: activeStudioSlug,
                   tag: activeTagSlug
                 }).toString()
@@ -188,6 +300,7 @@ export function CalendarPage() {
               release={selectedRelease}
               activeStudioSlug={activeStudioSlug}
               activeTagSlug={activeTagSlug}
+              onClose={closeSelected}
             />
           </div>
         ) : (
@@ -220,6 +333,7 @@ export function CalendarPage() {
                     release={selectedRelease}
                     activeStudioSlug={activeStudioSlug}
                     activeTagSlug={activeTagSlug}
+                    onClose={closeSelected}
                   />
                 </motion.aside>
               ) : null}

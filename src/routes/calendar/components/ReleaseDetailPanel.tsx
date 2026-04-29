@@ -1,19 +1,31 @@
-import type { ResolvedGameRelease } from "../calendar-types";
+ï»¿import type { ResolvedGameRelease } from "../calendar-types";
 import { ReleaseTags } from "./ReleaseTags";
 
 type ReleaseDetailPanelProps = {
   release: ResolvedGameRelease;
   activeStudioSlug: string | null;
   activeTagSlug: string | null;
+  onClose: () => void;
 };
 
 export function ReleaseDetailPanel({
   release,
   activeStudioSlug,
-  activeTagSlug
+  activeTagSlug,
+  onClose
 }: ReleaseDetailPanelProps) {
   return (
     <article className="release-detail-panel" aria-labelledby="release-detail-title">
+      <div className="release-detail-header">
+        <button
+          type="button"
+          className="release-detail-close"
+          onClick={onClose}
+          aria-label="Close game details"
+        >
+          <span aria-hidden="true">X</span>
+        </button>
+      </div>
       <img
         src={release.thumbnailUrl}
         alt={release.thumbnailAlt}
@@ -33,7 +45,7 @@ export function ReleaseDetailPanel({
           activeTagSlug={activeTagSlug}
         />
 
-        {release.quote ? <blockquote className="release-detail-quote">“{release.quote}”</blockquote> : null}
+        {release.quote ? <blockquote className="release-detail-quote">"{release.quote}"</blockquote> : null}
 
         <p className="release-detail-synopsis">{release.synopsis}</p>
 

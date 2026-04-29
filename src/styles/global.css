@@ -68,8 +68,10 @@ a {
 .not-found-page a,
 .calendar-clear-btn,
 .calendar-back-link,
+.calendar-month-arrow,
 .release-mini-button,
 .release-entity-link,
+.release-detail-close,
 .release-steam-cta {
   background: var(--surface-bg);
   color: var(--surface-fg);
@@ -91,10 +93,12 @@ a {
 .not-found-page a:is(:hover, :focus-visible, :active),
 .calendar-clear-btn:is(:hover, :focus-visible, :active),
 .calendar-back-link:is(:hover, :focus-visible, :active),
+.calendar-month-arrow:is(:hover, :focus-visible, :active),
 .release-mini-button:is(:hover, :focus-visible, :active),
 .release-mini-button.is-selected,
 .release-entity-link:is(:hover, :focus-visible, :active),
 .release-entity-link.is-active,
+.release-detail-close:is(:hover, :focus-visible, :active),
 .release-steam-cta:is(:hover, :focus-visible, :active) {
   background: var(--surface-fg);
   color: var(--surface-bg);
@@ -120,8 +124,10 @@ a {
 .not-found-page a:focus-visible,
 .calendar-clear-btn:focus-visible,
 .calendar-back-link:focus-visible,
+.calendar-month-arrow:focus-visible,
 .release-mini-button:focus-visible,
 .release-entity-link:focus-visible,
+.release-detail-close:focus-visible,
 .release-steam-cta:focus-visible,
 .contact-form input:focus-visible,
 .contact-form textarea:focus-visible,
@@ -544,6 +550,58 @@ a {
   margin: 0.6rem 0 0;
 }
 
+.calendar-filters {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: center;
+}
+
+.calendar-filter-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.calendar-filter-field span,
+.calendar-filter-toggle span {
+  font-size: 0.92rem;
+}
+
+.calendar-filter-field select {
+  border: var(--surface-border-width) solid var(--surface-border);
+  background: var(--surface-bg);
+  color: var(--surface-fg);
+  padding: 0.35rem 0.45rem;
+}
+
+.calendar-month-arrow {
+  min-width: 2rem;
+  height: 2rem;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.calendar-month-arrow:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.calendar-filter-field select:focus-visible,
+.calendar-filter-toggle input:focus-visible {
+  outline: var(--focus-width) solid currentColor;
+  outline-offset: var(--focus-offset);
+}
+
+.calendar-filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
 .calendar-clear-btn,
 .calendar-back-link,
 .release-steam-cta {
@@ -605,6 +663,12 @@ a {
 .calendar-day-list {
   display: grid;
   gap: 0.7rem;
+}
+
+.calendar-day-empty {
+  margin: 0;
+  border: var(--surface-border-width) dashed var(--surface-border);
+  padding: 0.65rem 0.75rem;
 }
 
 .release-mini-card {
@@ -670,11 +734,31 @@ a {
 
 .calendar-detail {
   min-width: 0;
+  position: sticky;
+  top: calc(var(--header-height) + 1rem);
+  align-self: start;
+  max-height: calc(100dvh - var(--header-height) - 2rem);
+  overflow: auto;
 }
 
 .release-detail-panel {
   border: var(--surface-border-width) solid var(--surface-border);
   background: var(--surface-bg);
+}
+
+.release-detail-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.45rem 0.45rem 0;
+}
+
+.release-detail-close {
+  width: 2rem;
+  height: 2rem;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  font-weight: 700;
 }
 
 .release-detail-image {
@@ -820,6 +904,13 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .calendar-detail {
+    position: static;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
   .release-mini-button {
     grid-template-columns: 4.8rem minmax(0, 1fr);
   }
@@ -844,8 +935,10 @@ a {
   .not-found-page a,
   .calendar-clear-btn,
   .calendar-back-link,
+  .calendar-month-arrow,
   .release-mini-button,
   .release-entity-link,
+  .release-detail-close,
   .release-steam-cta {
     transition: none !important;
   }

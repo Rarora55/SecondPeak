@@ -50,8 +50,24 @@ const releases: SanityReleaseDoc[] = [
   {
     id: "release-hollow-knight-silksong",
     slug: "hollow-knight-silksong",
-    title: "Hollow Knight: Silksong",
-    releaseDate: "2026-05-12",
+    title: "Temtem: Astral Campaign",
+    releaseDate: "2026-05-13",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=640&q=80",
+    thumbnailAlt: "Dark cavern landscape lit by pale neon",
+    studioId: "studio-team-cherry",
+    tagIds: ["tag-metroidvania", "tag-soulslike", "tag-atmospheric", "tag-pc", "tag-switch"],
+    quote: "A metroidvania climb where motion is both weapon and language.",
+    synopsis:
+      "Silksong turns vertical traversal into a rhythm game of commitment, map memory, and precise retaliation.",
+    steamUrl: "https://store.steampowered.com/app/1030300/Hollow_Knight_Silksong/",
+    publicationStatus: "published"
+  },
+  {
+    id: "release-Signalis-Signalis",
+    slug: "signalis-II",
+    title: "Signalius: Signalis II",
+    releaseDate: "2026-05-13",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=640&q=80",
     thumbnailAlt: "Dark cavern landscape lit by pale neon",

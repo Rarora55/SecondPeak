@@ -27,17 +27,21 @@ export function CalendarDay({
         {displayLabel}
       </h2>
       <div className="calendar-day-list">
-        {releases.map((release) => (
-          <motion.div key={release.id} layout>
-            <ReleaseMiniCard
-              release={release}
-              isSelected={selectedSlug === release.slug}
-              onSelect={onSelect}
-              activeStudioSlug={activeStudioSlug}
-              activeTagSlug={activeTagSlug}
-            />
-          </motion.div>
-        ))}
+        {releases.length > 0 ? (
+          releases.map((release) => (
+            <motion.div key={release.id} layout>
+              <ReleaseMiniCard
+                release={release}
+                isSelected={selectedSlug === release.slug}
+                onSelect={onSelect}
+                activeStudioSlug={activeStudioSlug}
+                activeTagSlug={activeTagSlug}
+              />
+            </motion.div>
+          ))
+        ) : (
+          <p className="calendar-day-empty">No releases</p>
+        )}
       </div>
     </section>
   );
