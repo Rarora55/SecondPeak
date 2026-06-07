@@ -1,18 +1,21 @@
 <!--
 Sync Impact Report
-- Version change: 1.0.0 -> 1.1.0
+- Version change: 1.1.0 -> 2.0.0
 - Modified principles:
-  - No principle title changes; governance obligations clarified in Delivery Workflow and Product Architecture Standards.
+  - VI. Content Ownership Discipline -> VI. Content Source and Boundary Discipline
+  - Product Architecture Standards: Home structure rule replaced with open-canvas Home rule
 - Added sections:
   - None
-- Removed sections: None
+- Removed sections:
+  - None
 - Templates requiring updates:
-  - .specify/templates/plan-template.md: unchanged (already aligned)
-  - .specify/templates/spec-template.md: unchanged (already aligned)
+  - .specify/templates/plan-template.md: updated
+  - .specify/templates/spec-template.md: updated
   - .specify/templates/tasks-template.md: updated
   - .specify/templates/commands/*.md: pending (directory not present)
-  - README.md: unchanged (already aligned)
-- Follow-up TODOs: None
+  - README.md: updated
+- Follow-up TODOs:
+  - None
 -->
 
 # Videogame Magazine Web App Constitution
@@ -29,9 +32,9 @@ Rationale: The product differentiator is premium editorial storytelling quality.
 
 ### II. Modular and Typed Architecture
 The codebase MUST remain modular, strongly typed, and domain-oriented. Routing, layout shells,
-content rendering, CMS integration, non-editorial data access, UI primitives, and animation
-orchestration MUST be separated with clear boundaries. Monolithic page components and duplicated
-logic are prohibited.
+content rendering, content-source adapters, non-editorial data access, UI primitives, and
+animation orchestration MUST be separated with clear boundaries. Monolithic page components and
+duplicated logic are prohibited.
 
 Rationale: Clear boundaries preserve maintainability and long-term expansion velocity.
 
@@ -60,13 +63,15 @@ used only when their value exceeds payload and runtime cost.
 
 Rationale: Performance directly affects readability, immersion, and retention.
 
-### VI. Content Ownership Discipline
-Sanity is the single source of truth for editorial content, including sections, articles, chapter
-pages, authors, hero assets, ordering, publish state, and SEO fields. Supabase MUST only store
-non-editorial product/app data such as contact submissions and future interaction data. Editorial
-ownership MUST never be split between Sanity and Supabase.
+### VI. Content Source and Boundary Discipline
+Each feature MUST define one authoritative source for its editorial content, such as local typed
+data, static files, or a CMS adapter, and MUST avoid split ownership for the same editorial
+surface. Non-editorial product/app data MUST remain clearly separated from editorial content
+models and flows. Temporary hard-coded editorial content is allowed when explicitly scoped by the
+feature plan and tasks.
 
-Rationale: Strict ownership avoids schema drift, duplicated logic, and publishing inconsistency.
+Rationale: Clear ownership boundaries avoid schema drift, duplicated logic, and publishing
+inconsistency while allowing pragmatic delivery stages.
 
 ### VII. Production-Ready Scalability
 All implementation decisions MUST support growth in sections, issues, chapter templates,
@@ -80,8 +85,9 @@ Rationale: Early architecture choices determine whether future editorial scale i
 
 - Routing MUST use React Router 7 nested routes with predictable human-readable slugs and direct
   entry support for any published article page.
-- Home MUST use a block-based editorial grid with one dominant center block and six secondary
-  blocks (three left, three right), expandable without architectural rewrites.
+- Home MUST remain an editorial canvas whose layout can change per feature or issue without
+  requiring global architectural rewrites. Home structure MUST be defined explicitly in the
+  relevant feature spec, plan, and tasks.
 - Chapter experiences MUST support parent and child URLs, consistent chapter shell UI, right-side
   progress rail, bottom navigation controls, and explicit reader position state.
 - Burger navigation MUST open a full-screen accessible overlay using Radix Dialog primitives where
@@ -91,8 +97,8 @@ Rationale: Early architecture choices determine whether future editorial scale i
 - Any feature that introduces or changes a public route MUST include explicit metadata and
   discoverability coverage in its spec, plan, and tasks (title/description/canonical/Open Graph
   plus sitemap/robots impact).
-- Missing or unavailable CMS/backend content MUST degrade gracefully with loading, empty, and error
-  states, including route-level error boundaries where appropriate.
+- Missing or unavailable content MUST degrade gracefully with loading, empty, and error states,
+  including route-level error boundaries where appropriate.
 
 ## Delivery Workflow and Quality Gates
 
@@ -105,7 +111,7 @@ Rationale: Early architecture choices determine whether future editorial scale i
 - Task plans MUST include chapter navigation and contact validation work items when those surfaces
   are in scope for the feature; out-of-scope surfaces MUST be explicitly labeled as non-regression
   checks only.
-- Code review MUST reject changes that blur Sanity/Supabase ownership boundaries, introduce
+- Code review MUST reject changes that blur editorial/non-editorial boundaries, introduce
   unnecessary animation complexity, or degrade readability/performance.
 - CI/CD for Vercel previews MUST remain functional; broken preview deployability blocks merge.
 
@@ -126,6 +132,4 @@ This constitution supersedes local conventions when conflicts occur.
 - Operational guidance source: repository templates under `.specify/templates/` MUST remain in
   sync with this document.
 
-**Version**: 1.1.0 | **Ratified**: 2026-04-22 | **Last Amended**: 2026-04-28
-
-
+**Version**: 2.0.0 | **Ratified**: 2026-04-22 | **Last Amended**: 2026-06-07

@@ -7,6 +7,7 @@ import { ContactPage } from "../routes/contact/ContactPage";
 import { HomeVersionPage } from "../routes/home/HomeVersionPage";
 import { ManifestoPage } from "../routes/manifesto/ManifestoPage";
 import { NotFoundPage } from "../routes/not-found/NotFoundPage";
+import { SectionArticlePage } from "../routes/sections/SectionArticlePage";
 import { SectionLandingPage } from "../routes/sections/SectionLandingPage";
 
 const farLoneSails = chapterRegistry.farLoneSails;
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
           />
         )
       },
+      { path: "features/:articleSlug", element: <SectionArticlePage section="features" /> },
       {
         path: "interviews",
         element: (
@@ -52,6 +54,7 @@ export const router = createBrowserRouter([
           />
         )
       },
+      { path: "interviews/:articleSlug", element: <SectionArticlePage section="interviews" /> },
       {
         path: "calendar",
         element: <CalendarPage />

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Outlet, NavLink, useLocation } from "react-router-dom";
 import { BurgerMenu } from "../../components/navigation/BurgerMenu";
 import { SiteFooter } from "../../components/shell/SiteFooter";
+import { EntryReveal } from "./EntryReveal";
 
 export type SiteLayoutOutletContext = {
   setHomeFooterInView: (isInView: boolean) => void;
@@ -13,7 +14,8 @@ export function SiteLayout() {
   const location = useLocation();
   const [isHomeFooterInView, setHomeFooterInView] = useState(false);
 
-  const isHomeRoute = location.pathname === HOME_ROUTE;
+  const isHomeRoute =
+    location.pathname === HOME_ROUTE || location.pathname.startsWith(`${HOME_ROUTE}/`);
   const showHomeFooter = isHomeRoute && isHomeFooterInView;
 
   useEffect(() => {
@@ -29,17 +31,20 @@ export function SiteLayout() {
 
   return (
     <div className="site-root">
-      <header className="site-header">
-        <NavLink
-          to="/home"
-          className={({ isActive }) => `site-brand${isActive ? " is-active" : ""}`}
-          aria-label="Go to home page"
-        >
-          SecondPeak
-        </NavLink>
-        <BurgerMenu />
-      </header>
-      <main className="site-main">
+      <EntryReveal />
+      {isHomeRoute ? null : (
+        <header className="site-header">
+          <NavLink
+            to="/home"
+            className={({ isActive }) => `site-brand${isActive ? " is-active" : ""}`}
+            aria-label="Go to home page"
+          >
+            SecondPeak
+          </NavLink>
+          <BurgerMenu />
+        </header>
+      )}
+      <main className={`site-main${isHomeRoute ? " site-main-home" : ""}`}>
         <Outlet context={outletContext} />
       </main>
       {showHomeFooter ? <SiteFooter /> : null}

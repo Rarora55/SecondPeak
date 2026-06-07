@@ -1,104 +1,88 @@
-import type { HomeTile, HomeVersion } from "./home-types";
+import type { HomeVersion } from "./home-types";
+import mainImage from "../../../ImagesContent/Home/MainImage.jpg";
 
 type ValidationResult = {
   isValid: boolean;
   issues: string[];
 };
 
-const FAR_LONE_SAILS: HomeVersion = {
-  slug: "far-lone-sails",
+const SILENCE_ISSUE: HomeVersion = {
+  slug: "silence",
   isActive: true,
-  title: "Far: Lone Sails",
-  issueNumber: "Issue 05",
-  season: "Spring",
-  month: "April",
-  year: 2026,
-  footerText: "Where motion becomes memory.",
+  publicationTitle: "SecondPeak",
+  brandHref: "/home",
+  issueNumber: "Issue 01",
+  issueDateLabel: "Julio 2026",
+  coverTitle: "SILENCE",
   theme: {
-    accentColor: "#000000",
-    backgroundColor: "#ffffff",
-    textColor: "#000000"
+    backgroundColor: "#ead8c5",
+    textColor: "#1f1c18",
+    accentColor: "#b96718",
+    titleColor: "rgba(255, 255, 255, 0.42)"
   },
-  mainFeature: {
-    coverLabel: "Cover Story",
-    title: "Far: Lone Sails",
-    subtitle: "A silent odyssey across a rusted horizon.",
-    imageSrc: "/images/home/far-lone-sails-main.jpg",
-    imageAlt: "Vehicle crossing a desolate landscape in Far: Lone Sails",
-    href: "/reviews/far-lone-sails/intro"
+  image: {
+    src: mainImage,
+    alt: "A weathered sail vehicle crossing a quiet horizon beneath heavy clouds.",
+    widthPreference: {
+      collapsed: "min(860px, 58vw)",
+      expanded: "min(760px, 50vw)",
+      narrow: "90vw"
+    },
+    aspectRatio: "16 / 9",
+    treatment: "paper-faded"
   },
-  leftTiles: [
-    makeTile("far-gameplay", "Review", "Gameplay", "/reviews/far-lone-sails/gameplay"),
-    makeTile("far-art", "Review", "Art Direction", "/reviews/far-lone-sails/art-direction"),
-    makeTile("far-conclusion", "Review", "Conclusion", "/reviews/far-lone-sails/conclusion")
+  topics: [
+    {
+      id: "far-lone-sails",
+      title: "El silencio de Far: Lone Sails",
+      description:
+        "Cómo el videojuego enseña preguntas que somos nosotros quienes tendremos que responder.",
+      href: "/reviews/far-lone-sails/intro",
+      section: "reviews"
+    },
+    {
+      id: "terror-en-2d",
+      title: "El terror en 2d",
+      description:
+        "El viaje a la solución de una mecánica complicada, los rebeldes del teatro.",
+      href: "/features/el-terror-en-2d",
+      section: "features"
+    },
+    {
+      id: "wych-elm-silver-pines",
+      title: "Quiénes son los nuevos",
+      description: "Hablamos de Wych Elm y su nuevo juego Silver Pines.",
+      href: "/interviews/wych-elm-silver-pines",
+      section: "interviews"
+    }
   ],
-  rightTiles: [
-    makeTile("features", "Desk", "Features", "/features"),
-    makeTile("interviews", "Desk", "Interviews", "/interviews"),
-    makeTile("manifesto", "Editorial", "Manifesto", "/manifesto")
-  ]
+  fallbackHref: "/home",
+  seo: {
+    title: "SILENCE | SecondPeak",
+    description:
+      "Issue 01 of SecondPeak opens on a quiet editorial cover and expands into three linked stories about silence, horror, and emerging voices.",
+    canonicalPath: "/home/silence"
+  }
 };
 
-const SIGNALIS: HomeVersion = {
-  slug: "signalis",
-  isActive: false,
-  title: "Signalis",
-  issueNumber: "Issue 04",
-  season: "Winter",
-  month: "February",
-  year: 2026,
-  footerText: "Echoes from the red corridor.",
-  theme: {
-    accentColor: "#a00f17",
-    backgroundColor: "#f8f3f3",
-    textColor: "#1f1212"
-  },
-  mainFeature: {
-    coverLabel: "Archive Cover",
-    title: "Signalis",
-    subtitle: "Memory, horror, and repetition in orbit.",
-    imageSrc: "/images/home/signalis-main.jpg",
-    imageAlt: "Red-lit corridor inspired by Signalis visual identity",
-    href: "/features"
-  },
-  leftTiles: [
-    makeTile("signalis-structure", "Analysis", "Narrative Structure", "/features"),
-    makeTile("signalis-tone", "Analysis", "Tone and Atmosphere", "/features"),
-    makeTile("signalis-legacy", "Analysis", "Legacy", "/features")
-  ],
-  rightTiles: [
-    makeTile("signalis-calendar", "Discover", "Release Calendar", "/calendar"),
-    makeTile("signalis-contact", "Community", "Contact", "/contact"),
-    makeTile("signalis-manifesto", "Editorial", "Manifesto", "/manifesto")
-  ]
-};
-
-const registry = [FAR_LONE_SAILS, SIGNALIS] as const;
-
-function makeTile(id: string, label: string, title: string, href: string): HomeTile {
-  return {
-    id,
-    label,
-    title,
-    href,
-    imageSrc: "/images/home/tile-placeholder.jpg",
-    imageAlt: `${title} section tile`
-  };
-}
+const registry = [SILENCE_ISSUE] as const;
 
 function validateVersion(version: HomeVersion): ValidationResult {
   const issues: string[] = [];
   if (!version.slug.trim()) issues.push("missing slug");
-  if (!version.title.trim()) issues.push(`missing title for ${version.slug}`);
-  if (!version.mainFeature.imageAlt.trim()) issues.push(`missing main alt for ${version.slug}`);
-  if (version.leftTiles.length !== 3) issues.push(`leftTiles must have exactly 3 items for ${version.slug}`);
-  if (version.rightTiles.length !== 3) issues.push(`rightTiles must have exactly 3 items for ${version.slug}`);
+  if (!version.publicationTitle.trim()) issues.push(`missing publicationTitle for ${version.slug}`);
+  if (!version.coverTitle.trim()) issues.push(`missing coverTitle for ${version.slug}`);
+  if (!version.issueNumber.trim()) issues.push(`missing issueNumber for ${version.slug}`);
+  if (!version.issueDateLabel.trim()) issues.push(`missing issueDateLabel for ${version.slug}`);
+  if (!version.image.src.trim()) issues.push(`missing image src for ${version.slug}`);
+  if (!version.image.alt.trim()) issues.push(`missing image alt for ${version.slug}`);
+  if (version.topics.length !== 3) issues.push(`topics must have exactly 3 items for ${version.slug}`);
 
-  const requiredTileFields = ["id", "label", "title", "imageSrc", "imageAlt", "href"] as const;
-  for (const tile of [...version.leftTiles, ...version.rightTiles]) {
-    for (const field of requiredTileFields) {
-      if (!String(tile[field] ?? "").trim()) {
-        issues.push(`missing ${field} in tile ${tile.id || "<unknown>"} (${version.slug})`);
+  for (const topic of version.topics) {
+    const requiredFields = ["id", "title", "description", "href", "section"] as const;
+    for (const field of requiredFields) {
+      if (!String(topic[field] ?? "").trim()) {
+        issues.push(`missing ${field} in topic ${topic.id || "<unknown>"} (${version.slug})`);
       }
     }
   }
@@ -160,4 +144,3 @@ export function getActiveVersion(): HomeVersion | null {
   const active = registry.find((item) => item.isActive);
   return active && isValidVersion(active) ? active : null;
 }
-

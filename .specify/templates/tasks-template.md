@@ -8,9 +8,9 @@ description: "Task list template for feature implementation"
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/
 
 **Tests**: Tests are REQUIRED for constitution-critical user journeys (routing integrity,
-reduced-motion behavior, accessibility-critical flows, and route-level resilience). Chapter
-navigation and contact-validation tasks are REQUIRED when those surfaces are in scope; otherwise
-add explicit non-regression checks.
+reduced-motion behavior, accessibility-critical flows, route-level resilience, and public-route
+discoverability). Chapter navigation and contact-validation tasks are REQUIRED when those surfaces
+are in scope; otherwise add explicit non-regression checks.
 
 **Organization**: Group tasks by user story so each story is independently implementable and testable.
 
@@ -39,8 +39,8 @@ add explicit non-regression checks.
 
 **Purpose**: Mandatory foundations before user stories
 
-- [ ] T004 Define content ownership boundaries (Sanity vs Supabase) in integration layer
-- [ ] T005 [P] Add schema-safe data access adapters for Sanity content queries
+- [ ] T004 Define editorial vs non-editorial data boundaries for the feature source in the integration layer
+- [ ] T005 [P] Add schema-safe access adapters for the selected editorial content source
 - [ ] T006 [P] Add validation and persistence path for non-editorial records (if needed)
 - [ ] T007 Implement route-level loading/empty/error states and fallback UI
 - [ ] T008 Establish accessibility baseline for navigation/dialog/focus behavior
@@ -134,6 +134,5 @@ add explicit non-regression checks.
 ## Notes
 
 - Keep feature work aligned with constitution gates in `plan.md`
-- Reject tasks that mix editorial and non-editorial data ownership
+- Reject tasks that split ownership for the same editorial surface or blur editorial and non-editorial boundaries
 - Prefer reusable abstractions over page-level duplication
-

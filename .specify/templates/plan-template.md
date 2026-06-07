@@ -16,7 +16,7 @@
 **Styling**: Tailwind CSS 4
 **Animation**: Motion 12 (GSAP only when justified)
 **UI Primitives**: Radix Dialog
-**Editorial CMS**: Sanity (source of truth for editorial content)
+**Editorial Content Source**: [NEEDS CLARIFICATION: local typed data, static files, or CMS adapter]
 **Non-Editorial Data**: Supabase JS v2
 **Hosting**: Vercel (production + previews)
 **Testing**: [NEEDS CLARIFICATION: choose Vitest/Playwright or equivalent]
@@ -35,7 +35,7 @@
 - Horizontal storytelling: Limited to chapter reading flows; mobile fallback is defined.
 - Accessibility: Keyboard flows, focus management, touch usability, and reduced-motion fallback are defined.
 - Performance: Budgets/strategy for lazy loading, media optimization, and animation cost are defined.
-- Content ownership: Sanity (editorial) and Supabase (non-editorial) responsibilities are explicit.
+- Content ownership: Editorial source and non-editorial data boundaries are explicit.
 - SEO/discoverability: Metadata, canonical, Open Graph, sitemap, and robots expectations are defined.
 - Resilience: Loading, empty, and error states plus route-level error boundaries are defined.
 - Deployability: Vercel preview and production viability is preserved.
@@ -74,7 +74,7 @@ src/
 |   |-- seo/
 |   `-- forms/
 |-- integrations/
-|   |-- sanity/
+|   |-- content/
 |   `-- supabase/
 |-- ui/
 |   |-- primitives/
@@ -97,5 +97,4 @@ src/
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
 | [e.g., global GSAP dependency] | [specific requirement] | [why Motion/CSS alone failed] |
-| [e.g., temporary mixed ownership] | [migration constraint] | [why strict separation not feasible now] |
-
+| [e.g., temporary single-feature hard-coded content source] | [delivery constraint] | [why broader content integration is not needed yet] |

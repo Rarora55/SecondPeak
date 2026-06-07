@@ -7,4 +7,3 @@ export function getRobotsRules() {
     allow: allowedHomePaths
   };
 }
-

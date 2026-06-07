@@ -52,7 +52,7 @@
 
 - Direct URL entry to a published article page that is not promoted on the home page.
 - Missing chapter segment or unpublished segment referenced by route.
-- Slow CMS response, CMS outage, or partial payload.
+- Slow or unavailable content source response, or partial payload.
 - Reduced-motion preference while chapter progression is enabled.
 - Small screens where desktop-oriented horizontal behavior harms readability.
 
@@ -60,8 +60,8 @@
 
 ### Functional Requirements
 
-- **FR-001**: System MUST keep editorial content ownership in Sanity.
-- **FR-002**: System MUST restrict Supabase usage to non-editorial app/product data.
+- **FR-001**: System MUST define one authoritative source for editorial content in scope.
+- **FR-002**: System MUST keep editorial and non-editorial data responsibilities clearly separated.
 - **FR-003**: Published article/chapter child pages MUST be directly addressable by stable slug URLs.
 - **FR-004**: Chapter shell MUST show progress state and support previous/next navigation.
 - **FR-005**: Global navigation overlay MUST be keyboard accessible with focus trap and escape-to-close.
@@ -92,7 +92,7 @@
 - **Section**: Editorial grouping with slug, title, and ordering metadata.
 - **Article**: Editorial unit with SEO fields, publish status, and featured eligibility.
 - **ChapterPage**: Addressable article segment with sequence order and content blocks.
-- **ContactSubmission**: Non-editorial submission record stored outside CMS content models.
+- **ContactSubmission**: Non-editorial submission record stored outside editorial content models.
 
 ## Success Criteria (mandatory)
 
@@ -105,7 +105,6 @@
 
 ## Assumptions
 
-- Editorial data models are available in Sanity for this feature scope.
+- Editorial content for this feature is available from the selected source defined in the plan.
 - Required environment variables are configured for local and Vercel preview environments.
 - Feature can reuse existing chapter shell and route abstractions unless explicitly replaced.
-

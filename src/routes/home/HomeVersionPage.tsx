@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
 import type { SiteLayoutOutletContext } from "../../app/shell/SiteLayout";
+import { applyRouteSeo } from "../../app/seo";
 import {
   getActiveVersion,
   getVersionBySlug
@@ -23,20 +24,6 @@ function getHomeScrollProgress(homePageElement: HTMLElement) {
   }
 
   return Math.min(1, Math.max(0, (scrollTop - minScroll) / totalScrollable));
-}
-
-function upsertMeta(selector: string, attrs: Record<string, string>) {
-  let element = document.head.querySelector(selector) as HTMLMetaElement | HTMLLinkElement | null;
-  if (!element) {
-    element = document.createElement(
-      selector.startsWith("link") ? "link" : "meta"
-    ) as HTMLMetaElement | HTMLLinkElement;
-    document.head.appendChild(element);
-  }
-
-  for (const [key, value] of Object.entries(attrs)) {
-    element.setAttribute(key, value);
-  }
 }
 
 export function HomeVersionPage() {
@@ -77,40 +64,23 @@ export function HomeVersionPage() {
   }, [setHomeFooterInView, version?.slug]);
 
   useEffect(() => {
-    const resolvedPath = version ? `/home/${version.slug}` : "/home";
-    const absoluteUrl = `${window.location.origin}${resolvedPath}`;
-    const title = version
-      ? `${version.title} | SecondPeak`
-      : "Home | SecondPeak";
-    const description = version
-      ? `${version.title}. ${version.mainFeature.subtitle}`
-      : "Editorial home issue unavailable.";
+    if (version) {
+      applyRouteSeo({
+        ...version.seo,
+        canonicalPath: versionSlug ? version.seo.canonicalPath : "/home"
+      });
+      return;
+    }
 
-    document.title = title;
-    upsertMeta('meta[name="description"]', {
-      name: "description",
-      content: description
+    applyRouteSeo({
+      title: "Home unavailable | SecondPeak",
+      description: "The requested issue could not be resolved. Return to the current Home cover.",
+      canonicalPath: "/home"
     });
-    upsertMeta('link[rel="canonical"]', {
-      rel: "canonical",
-      href: absoluteUrl
-    });
-    upsertMeta('meta[property="og:title"]', {
-      property: "og:title",
-      content: title
-    });
-    upsertMeta('meta[property="og:description"]', {
-      property: "og:description",
-      content: description
-    });
-    upsertMeta('meta[property="og:url"]', {
-      property: "og:url",
-      content: absoluteUrl
-    });
-  }, [version]);
+  }, [version, versionSlug]);
 
   return (
-    <div ref={homePageRef}>
+    <div ref={homePageRef} className="home-version-route">
       <HomeShell version={version} />
     </div>
   );
