@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 import type { HomeVersion } from "../home-types";
-import { HomeFooterStrip } from "./HomeFooterStrip";
-import { HomeGrid } from "./HomeGrid";
+import { HomeCoverHero } from "./HomeCoverHero";
 
 type HomeShellProps = {
   version: HomeVersion | null;
@@ -10,8 +9,8 @@ type HomeShellProps = {
 export function HomeShell({ version }: HomeShellProps) {
   if (!version) {
     return (
-      <section className="home-page" aria-label="Editorial home">
-        <div className="home-grid">
+      <section className="home-cover-page" aria-label="Editorial home">
+        <div className="home-cover-stage home-cover-stage-fallback">
           <article className="home-fallback" aria-live="polite">
             <h1>Version not found</h1>
             <p>The requested issue is unavailable.</p>
@@ -26,18 +25,18 @@ export function HomeShell({ version }: HomeShellProps) {
 
   return (
     <section
-      className="home-page"
-      aria-label={`Editorial home: ${version.title}`}
+      className="home-cover-page home-cover-shell"
+      aria-label={`Editorial home: ${version.coverTitle}`}
       style={
         {
           "--home-accent": version.theme.accentColor,
           "--home-bg": version.theme.backgroundColor,
-          "--home-fg": version.theme.textColor
+          "--home-fg": version.theme.textColor,
+          "--home-title-color": version.theme.titleColor
         } as CSSProperties
       }
     >
-      <HomeGrid version={version} />
-      <HomeFooterStrip version={version} />
+      <HomeCoverHero version={version} />
     </section>
   );
 }
